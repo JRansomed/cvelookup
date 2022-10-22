@@ -1,5 +1,4 @@
 #!/bin/bash
 
-source ~/src/cvelookup/venv/bin/activate
-~/src/cvelookup/cvelookup.py $1
-deactivate
+~/src/cvelookup/venv/bin/python3 \
+~/src/cvelookup/cvelookup.py $1 $2

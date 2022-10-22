@@ -36,6 +36,13 @@ The cvelookup.ini file is used to configure the following:
 This optional wrapper helps activate the virtual environment, execute the script, and exit the virtual environment.  
 Copy *cvelookup-wrapper* somewhere that is in your PATH.  Rename it to something like *cvelookup*.  Edit it so that it has has the correct paths to your cvelookup repo.  
 
+**Alternative to the wrapper**:
+An alternative to the wrapper is an alias with your shell. For bash, you'd edit .bashrc in your home directory and add something like the following that points to your installation:  
+`alias cvelookup="~/src/cvelookup/venv/bin/python3 ~/src/cvelookup/cvelookup.py"`  
+
+To use the new alias, restart your terminal or source it again:  
+`source ~/.bashrc`
+
 ### Make *cvelookup.py* executable
 This example is a Linux example:  
 `chmod 700 cvelookup.py`
