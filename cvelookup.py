@@ -52,7 +52,8 @@ def bulkreport(bresults):
     # Default is MEDIUM. This can be changed in .cvelookup.ini
     if cvssmin == 'MEDIUM':
         for cve, details in bresults.items():
-            if (details[0]['cvss2'] == 'MEDIUM'
+            if (
+                    details[0]['cvss2'] == 'MEDIUM'
                     or details[0]['cvss2'] == 'HIGH'
                     or details[0]['cvss2'] == 'CRITICAL'
                     or details[0]['cvss3'] == 'MEDIUM'
@@ -61,7 +62,8 @@ def bulkreport(bresults):
                 writereport(cve, details)
     elif cvssmin == 'HIGH':
         for cve, details in bresults.items():
-            if (details[0]['cvss2'] == 'HIGH'
+            if (
+                    details[0]['cvss2'] == 'HIGH'
                     or details[0]['cvss2'] == 'CRITICAL'
                     or details[0]['cvss3'] == 'HIGH'
                     or details[0]['cvss3'] == 'CRITICAL'):
@@ -110,7 +112,7 @@ def cvebulk(cvelist):
                     print(e)
                     print('*********************************************\n\n')
                     results = {'totalResults': 0}
-            
+
             # Sometimes we get an unexpected response from nist.gov.
             # Waiting a little bit and trying the request again normally
             # clears the issue up.  We will wait 30 seconds and try again.
@@ -129,24 +131,28 @@ def cvebulk(cvelist):
                     print('Adding results')
                     cveresults.update(
                             {cve:
-                                [{'cvss2': getcvss2(results),
-                                    'cvss3': getcvss3(results),
-                                    'Description': getdesc(results)
-                                  }
-                                 ]
+                                [
+                                 {
+                                  'cvss2': getcvss2(results),
+                                  'cvss3': getcvss3(results),
+                                  'Description': getdesc(results)
+                                 }
+                                ]
                              }
-                        )
+                    )
                     time.sleep(searchdelay)
             else:
                 cveresults.update(
                         {cve:
-                            [{'cvss2': getcvss2(results),
-                                'cvss3': getcvss3(results),
-                                'Description': getdesc(results)
-                              }
-                             ]
+                            [
+                             {
+                              'cvss2': getcvss2(results),
+                              'cvss3': getcvss3(results),
+                              'Description': getdesc(results)
+                             }
+                            ]
                          }
-                    )
+                )
                 time.sleep(searchdelay)
     return cvefailed, cveresults
 
@@ -358,16 +364,17 @@ CONTEXT_SETTINGS = {'help_option_names': ['-h', '--help']}
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
-@click.option('-f', required=False, help='Specify a file to perform a bulk ' +
-              'search of any CVEs found within the file.')
-@click.option('-l', required=False, is_flag=True, help='Lookup CVEs manually')
-def main(f, l):
+@click.option('--filename', '-f', required=False, help='Specify a file to ' +
+              'perform a bulk search of any CVEs found within the file.')
+@click.option('--lookup', '-l', required=False, is_flag=True, help='Lookup ' +
+              'CVEs manually')
+def main(filename, lookup):
     '''
     A tool to lookup CVEs.
     '''
-    if f:
+    if filename:
         printsettings(apikey, cvssmin, searchdelay)
-        cvelist = extract(f)
+        cvelist = extract(filename)
         bresults = cvebulk(cvelist)
         bulkreport(bresults)
         failreport(bresults)
@@ -377,7 +384,7 @@ def main(f, l):
         print('The file can be found in the location you executed cvelookup')
         print('from.\n\n')
         pass
-    elif l:
+    elif lookup:
         cvesearch()
     else:
         print('Usage: cvelookup.py [OPTIONS] \n' +

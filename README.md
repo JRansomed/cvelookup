@@ -43,10 +43,6 @@ An alternative to the wrapper is an alias with your shell. For bash, you'd edit 
 To use the new alias, restart your terminal or source it again:  
 `source ~/.bashrc`
 
-### Make *cvelookup.py* executable
-This example is a Linux example:  
-`chmod 700 cvelookup.py`
-
 ## cvelookup.py usage help:
 ```
 cvelookup -h
