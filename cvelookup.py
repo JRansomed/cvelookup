@@ -70,7 +70,8 @@ def bulkreport(bresults):
                 writereport(cve, details)
     elif cvssmin == 'CRITICAL':
         for cve, details in bresults.items():
-            if (details[0]['cvss2'] == 'CRITICAL'
+            if (
+                    details[0]['cvss2'] == 'CRITICAL'
                     or details[0]['cvss3'] == 'CRITICAL'):
                 writereport(cve, details)
 
