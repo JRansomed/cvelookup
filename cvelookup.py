@@ -251,7 +251,7 @@ def getcveid(results):
 
     try:
         return results['vulnerabilities'][0]['cve']['id']
-    except (KeyError, NameError):
+    except (KeyError, NameError, TypeError):
         return None
 
 
@@ -264,7 +264,7 @@ def getcvss2(results):
     try:
         return results['vulnerabilities'][0]['cve']['metrics'][
                 'cvssMetricV2'][0]['cvssData']['baseSeverity']
-    except (KeyError, NameError):
+    except (KeyError, NameError, TypeError):
         return 'Unknown'
 
 
@@ -277,7 +277,7 @@ def getcvss3(results):
     try:
         return results['vulnerabilities'][0]['cve']['metrics'][
                 'cvssMetricV31'][0]['cvssData']['baseSeverity']
-    except (KeyError, NameError):
+    except (KeyError, NameError, TypeError):
         return 'Unknown'
 
 
@@ -289,7 +289,7 @@ def getdesc(results):
 
     try:
         return results['vulnerabilities'][0]['cve']['descriptions'][0]['value']
-    except (KeyError, NameError):
+    except (KeyError, NameError, TypeError):
         return 'Unknown'
 
 
@@ -303,7 +303,7 @@ def getresults(results):
 
     try:
         return results['totalResults']
-    except (KeyError, NameError):
+    except (KeyError, NameError, TypeError):
         return 0
 
 
