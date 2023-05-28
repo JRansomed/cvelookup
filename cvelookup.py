@@ -158,7 +158,7 @@ def cvebulk(cvelist):
     return cvefailed, cveresults
 
 
-def cvesearch():
+def cvesearch(searchdelay):
     """
     Function to search for CVEs, one at a time.  The function will run in a
     loop, asking for a CVE to lookup, return the details and ask for another
@@ -181,7 +181,7 @@ def cvesearch():
                 print('CVSSv3: ' + getcvss3(results) + '\n')
                 print('DESCRIPTION:')
                 print(wrapper.fill(text=getdesc(results)) + '\n\n')
-                print('Observing a search delay of ' + searchdelay +
+                print('Observing a search delay of ' + str(searchdelay) +
                       ' seconds...')
                 time.sleep(searchdelay)
 
@@ -251,7 +251,7 @@ def getcveid(results):
 
     try:
         return results['vulnerabilities'][0]['cve']['id']
-    except (KeyError, NameError, TypeError):
+    except (KeyError, NameError, IndexError, TypeError):
         return None
 
 
@@ -264,7 +264,7 @@ def getcvss2(results):
     try:
         return results['vulnerabilities'][0]['cve']['metrics'][
                 'cvssMetricV2'][0]['cvssData']['baseSeverity']
-    except (KeyError, NameError, TypeError):
+    except (KeyError, NameError, IndexError, TypeError):
         return 'Unknown'
 
 
@@ -277,7 +277,7 @@ def getcvss3(results):
     try:
         return results['vulnerabilities'][0]['cve']['metrics'][
                 'cvssMetricV31'][0]['cvssData']['baseSeverity']
-    except (KeyError, NameError, TypeError):
+    except (KeyError, NameError, IndexError, TypeError):
         return 'Unknown'
 
 
@@ -289,7 +289,7 @@ def getdesc(results):
 
     try:
         return results['vulnerabilities'][0]['cve']['descriptions'][0]['value']
-    except (KeyError, NameError, TypeError):
+    except (KeyError, NameError, IndexError, TypeError):
         return 'Unknown'
 
 
@@ -303,7 +303,7 @@ def getresults(results):
 
     try:
         return results['totalResults']
-    except (KeyError, NameError, TypeError):
+    except (KeyError, NameError, IndexError, TypeError):
         return 0
 
 
@@ -386,7 +386,7 @@ def main(filename, lookup):
         print('from.\n\n')
         pass
     elif lookup:
-        cvesearch()
+        cvesearch(searchdelay)
     else:
         print('Usage: cvelookup.py [OPTIONS] \n' +
               "Try 'cvelookup.py -h' for help.\n\n")

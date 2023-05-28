@@ -5,7 +5,7 @@ cvelookup is a python3 script used to lookup CVEs from nvd.nist.gov via version 
 There are multiple ways to use this script.  This is an example of one way to use it.  
 
 ### Start by cloning this repo:
-`git clone https://git.jransomed.com/jstevens/cvelookup.git`  
+`git clone https://github.com/JRansomed/cvelookup.git`  
 
 The following files will be downloaded:  
  **README.md:** This is a copy of the README displayed on this repo  
